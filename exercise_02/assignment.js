@@ -10,7 +10,7 @@ function printGreeting(name) {
 
 printStatement();
 
-let name = "Sergey";
+const name = "Sergey";
 
 printGreeting(name);
 
@@ -20,5 +20,5 @@ function concatThree(str1, str2, str3) {
   return str1 + str2 + str3;
 }
 
-let concatenated = concatThree("Big", "Baby", "Tape");
+const concatenated = concatThree("Big", "Baby", "Tape");
 alert(concatenated);
