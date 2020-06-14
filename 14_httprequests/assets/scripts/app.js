@@ -55,23 +55,21 @@ function sendHttpRequest(method, url, data) {
     });
 }
 
-async function fetchPosts() {
-  try {
-    const responseData = await sendHttpRequest("GET", "https://jsonplaceholder.typicode.com/posts");
-    const listOfPosts = responseData;
-    for (const post of listOfPosts) {
-      const postEl = document.importNode(postTemplate.content, true);
-      postEl.querySelector("h2").textContent = post.title.toUpperCase();
-      postEl.querySelector("p").textContent = post.body;
-      postEl.querySelector("li").id = post.id;
-      listElement.append(postEl);
-    }
-  } catch (error) {
-    alert(error.message);
-  }
+function fetchPosts() {
+  sendHttpRequest("GET", "https://jsonplaceholder.typicode.com/posts")
+    .then((listOfPosts) => {
+      for (const post of listOfPosts) {
+        const postEl = document.importNode(postTemplate.content, true);
+        postEl.querySelector("h2").textContent = post.title.toUpperCase();
+        postEl.querySelector("p").textContent = post.body;
+        postEl.querySelector("li").id = post.id;
+        listElement.append(postEl);
+      }
+    })
+    .catch((error) => alert(error.message));
 }
 
-async function createPost(title, content) {
+function createPost(title, content) {
   const userId = Math.random();
   const post = {
     title: title,
@@ -84,7 +82,7 @@ async function createPost(title, content) {
   // fd.append('body', content);
   fd.append("userId", userId);
 
-  sendHttpRequest("POST", "https://jsonplaceholder.typicode.com/posts", fd);
+  return sendHttpRequest("POST", "https://jsonplaceholder.typicode.com/posts", fd);
 }
 
 fetchButton.addEventListener("click", fetchPosts);
