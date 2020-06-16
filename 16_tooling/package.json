@@ -5,14 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "build": "webpack",
+    "build:dev": "webpack-dev-server"
   },
   "author": "Sergey Kononenko",
   "license": "ISC",
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
     "eslint": "^7.2.0",
     "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
   }
 }
