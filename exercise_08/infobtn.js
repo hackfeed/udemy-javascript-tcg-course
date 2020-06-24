@@ -4,16 +4,32 @@ class InfoBtn extends HTMLElement {
     this._isHidden = true;
     this._btnTextActive = "Show";
     this._btnTextInactive = "Hide";
+
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = `
     <style>
-      #info-box {
+    #info-box {
         display: none;
-      }
+    }
     </style>
     <button></button>
     <p id="info-box"><slot>Default slot</slot></p>
     `;
+
+    this._btnEl = this.shadowRoot.querySelector("button");
+    this._infoEl = this.shadowRoot.querySelector("p");
+
+    this._btnEl.addEventListener("click", () => {
+      if (this._isHidden) {
+        this._infoEl.style.display = "block";
+        this._btnEl.textContent = this._btnTextInactive;
+        this._isHidden = false;
+      } else {
+        this._infoEl.style.display = "none";
+        this._btnEl.textContent = this._btnTextActive;
+        this._isHidden = true;
+      }
+    });
   }
 
   connectedCallback() {
@@ -24,22 +40,7 @@ class InfoBtn extends HTMLElement {
       this._btnTextInactive = this.getAttribute("btntextinact");
     }
 
-    const button = this.shadowRoot.querySelector("button");
-    const infoEl = this.shadowRoot.querySelector("p");
-
-    button.textContent = this._btnTextActive;
-
-    button.addEventListener("click", () => {
-      if (this._isHidden) {
-        infoEl.style.display = "block";
-        button.textContent = this._btnTextInactive;
-        this._isHidden = false;
-      } else {
-        infoEl.style.display = "none";
-        button.textContent = this._btnTextActive;
-        this._isHidden = true;
-      }
-    });
+    this._btnEl.textContent = this._btnTextActive;
   }
 }
 
